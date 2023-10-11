@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MyTasks.Core.Models.Domains.Category>
+
+<div id="categoryTable">
+    <table class="table w-25 mt-3 table-bordered border-primary table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Nazwa</th>                
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var category in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Category", "Category", new { id = category.Id })" class="fw-bold text-black">@category.Name</a>
+                        </td>
+                        <td align="center">
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="deleteCategory('@category.Id', this)">
+                                Usuń
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="5">
+                        Brak przypisanych kategori dla danego użytkownika!
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a href="@Url.Action("Category", "Category", new { id = 0 })" class="btn btn-success font-weight-bold">Dodaj nową kategorię</a>
+</div>
